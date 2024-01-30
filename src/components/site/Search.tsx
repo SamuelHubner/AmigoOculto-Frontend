@@ -28,7 +28,7 @@ export const Search = ({ id }: Props) => {
         <section className="bg-gray-900 p-5 rounded">
             {!results && <SearchForm 
                 onSearchButton={handleSearchButton}
-                // loading={loading}
+                loading={loading}
             />}
             {results && <SearchReveal results={results} />}
         </section>

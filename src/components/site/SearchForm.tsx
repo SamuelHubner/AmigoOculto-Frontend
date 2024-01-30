@@ -5,9 +5,10 @@ import { useState } from "react";
 
 type Props = {
     onSearchButton: (cpf: string) => void;
+    loading: boolean;
 }
 
-export const SearchForm = ({onSearchButton }: Props) => {
+export const SearchForm = ({onSearchButton, loading }: Props) => {
     const [cpfInput, setCpfInput] = useState('');
 
     return (
@@ -17,15 +18,17 @@ export const SearchForm = ({onSearchButton }: Props) => {
                 type="text"
                 inputMode="numeric"
                 placeholder="Digite seu CPF"
-                className="w-full p-3 bg-white text-black text-center text-4xl outline-none rounded-lg"
+                className="w-full p-3 bg-white text-black text-center text-4xl outline-none rounded-lg disabled:opacity-50"
                 autoFocus
                 value={cpfInput}
                 onChange={(e => setCpfInput(escapeCPF(e.target.value)))}
+                disabled={loading}
             />
             <button
-                className="w-full p-3 mt-3 rouded-lg bg-blue-800 text-white text-4xl border-b-4 border-blue-600"
+                className="w-full p-3 mt-3 rouded-lg bg-blue-800 text-white text-4xl border-b-4 border-blue-600 disabled:opacity-50"
                 onClick={() => onSearchButton(cpfInput)}
-            >Buscar</button>
+                disabled={loading}
+            >{loading ? 'Buscando..' : 'Buscar'}</button>
         </div>
     )
 }
