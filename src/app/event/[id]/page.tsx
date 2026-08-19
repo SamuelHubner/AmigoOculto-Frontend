@@ -2,9 +2,10 @@ import * as api from '@/api/site';
 import { Search } from '@/components/site/Search';
 import { redirect } from 'next/navigation';
 
-type Props = { params: { id: string; }; };
+type Props = { params: Promise<{ id: string; }>; };
 const Page = async ({ params }: Props) => {
-    const eventItem =  await api.getEvent(parseInt(params.id));
+    const { id } = await params;
+    const eventItem =  await api.getEvent(parseInt(id));
     if (!eventItem || !eventItem.status) return redirect('/');
 
     return (
